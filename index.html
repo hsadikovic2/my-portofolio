@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haris Sadiković — Full Stack Engineer</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg: #030712; 
+            --accent: #38bdf8; 
+            --accent-glow: rgba(56, 189, 248, 0.3);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --card-bg: rgba(255, 255, 255, 0.02);
+            --border: rgba(255, 255, 255, 0.05);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* --- GLOW BACKGROUNDS --- */
+        .glow-sphere {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: var(--accent);
+            filter: blur(150px);
+            opacity: 0.12;
+            z-index: -1;
+            border-radius: 50%;
+        }
+
+        /* --- HEADER / HERO --- */
+        header {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .hero-text {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .hero-image {
+            justify-self: end;
+            width: 320px;
+            height: 320px;
+            border-radius: 28px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: radial-gradient(circle at 30% 30%, var(--accent-glow), transparent 60%),
+                        linear-gradient(135deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0));
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+            position: relative;
+        }
+
+        .hero-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 28px;
+            pointer-events: none;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            filter: saturate(1.05);
+        }
+
+        .hero-top {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: var(--accent);
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .hero-top span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            letter-spacing: -3px;
+            line-height: 1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, #fff, #64748b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .lead {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin-bottom: 3rem;
+        }
+
+        /* --- BUTTONS & HOVERS --- */
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: var(--text-primary);
+            color: var(--bg);
+            text-decoration: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid transparent;
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            color: var(--text-primary);
+            border-color: var(--text-primary);
+            transform: scale(1.05) rotate(-1deg);
+        }
+
+        .btn-primary i {
+            transition: transform 0.3s ease;
+        }
+
+        .btn-primary:hover i {
+            transform: translateX(5px);
+        }
+
+        /* --- SECTIONS --- */
+        section {
+            padding: 8rem 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .section-tag {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 3rem;
+        }
+
+        /* --- EXPERIENCE --- */
+        .exp-card {
+            background: linear-gradient(to right, rgba(56, 189, 248, 0.05), transparent);
+            border-left: 2px solid var(--accent);
+            padding: 2.5rem;
+            border-radius: 0 20px 20px 0;
+        }
+
+        .exp-company {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .exp-role {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        /* --- PROJECTS --- */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            align-items: stretch;
+            grid-auto-rows: 1fr;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            min-height: 420px;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at top right, var(--accent-glow), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 0;
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: rgba(56, 189, 248, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .project-card-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .tech-tag {
+            font-family: monospace;
+            font-size: 0.8rem;
+            color: var(--accent);
+            background: rgba(56, 189, 248, 0.1);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover .tech-tag {
+            background: var(--accent);
+            color: var(--bg);
+        }
+
+        .project-card h3 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            letter-spacing: -0.5px;
+        }
+
+        .project-card p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .sec-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #fb923c;
+            background: rgba(251, 146, 60, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid rgba(251, 146, 60, 0.2);
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+        }
+
+        .project-card:hover .sec-badge {
+            transform: rotate(-2deg);
+        }
+
+        /* Card Action Buttons Container */
+        .card-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-top: auto;
+            padding-top: 2rem;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.4s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .project-card:hover .card-actions {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .demo-btn {
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--accent);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .demo-btn:hover {
+            background: var(--accent);
+            color: var(--bg);
+        }
+
+        .project-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .project-link:hover {
+            color: var(--accent);
+        }
+
+        /* --- CONTACT --- */
+        .contact-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-title {
+            font-size: 4rem;
+            font-weight: 800;
+            letter-spacing: -2px;
+            line-height: 1;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .social-icon {
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-icon:hover {
+            color: var(--accent);
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        /* --- KEYFRAMES --- */
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(56, 189, 248, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(56, 189, 248, 0); }
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            h1 { font-size: 3rem; }
+            .contact-title { font-size: 2.5rem; }
+            .project-grid { grid-template-columns: 1fr; }
+            .exp-role { font-size: 1.4rem; }
+            .card-actions { flex-direction: column; align-items: flex-start; gap: 1rem; opacity: 1; transform: none; }
+        }
+
+        /* --- MODAL / POPUP CSS --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(3, 7, 18, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 3rem;
+            max-width: 800px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: translateY(30px) scale(0.95);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0) scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .modal-close:hover {
+            background: #ef4444;
+            border-color: #ef4444;
+            color: #fff;
+            transform: rotate(90deg);
+        }
+
+        .modal-header {
+            margin-bottom: 2rem;
+            padding-right: 3rem;
+        }
+
+        .modal-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+
+        .modal-tags-container {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .modal-video-container {
+            width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 2.5rem;
+            border: 1px solid var(--border);
+            background: #000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .modal-video-container video {
+            width: 100%;
+            display: block;
+        }
+
+        .modal-body-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .modal-desc-body {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .modal-desc-body p {
+            margin-bottom: 1rem;
+        }
+
+        .modal-footer {
+            margin-top: 1rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: flex-start;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="glow-sphere" style="top: -100px; left: -100px;"></div>
+    <div class="glow-sphere" style="bottom: -200px; right: -100px;"></div>
+
+    <div class="container">
+
+        <header>
+            <div class="hero-content">
+                <div class="hero-text">
+                    <div class="hero-top" data-aos="fade-down" data-aos-duration="1000">
+                        <span></span> Available for new opportunities
+                    </div>
+                    <h1 data-aos="fade-up" data-aos-duration="1200">Haris Sadiković.</h1>
+                    <p class="lead" data-aos="fade-up" data-aos-duration="1400" data-aos-delay="200">
+                        Full Stack Engineer specializing in building modern web, mobile apps, and robust backend systems. Let's engineer digital products with speed and precision.
+                    </p>
+                    <div data-aos="fade-up" data-aos-duration="1400" data-aos-delay="400">
+                        <a href="#contact" class="btn-primary">Connect With Me <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <div class="hero-image" data-aos="zoom-in" data-aos-duration="1200" data-aos-delay="300">
+                    <img src="Desktop/b2b/HARIS2.png" alt="Haris Sadiković">
+                </div>
+            </div>
+        </header>
+
+        <section id="experience">
+            <span class="section-tag" data-aos="fade-right">/ Professional Experience</span>
+            <div class="exp-card" data-aos="fade-up" data-aos-duration="1000">
+                <span class="exp-company">Zira</span>
+                <h3 class="exp-role">Software Engineer Intern — Zira Talent Academy</h3>
+                
+                <div style="margin-top: 1rem; margin-bottom: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                    <span class="tech-tag">Java / Spring Boot</span>
+                    <span class="tech-tag">Angular</span>
+                    <span class="tech-tag">PostgreSQL / DBeaver</span>
+                    <span class="tech-tag">System Architecture</span>
+                    <span class="tech-tag">UI/UX Design</span>
+                </div>
+
+                <p style="color: var(--text-secondary); max-width: 750px; font-size: 1.05rem;">
+                    Gained hands-on experience in enterprise software development, focusing on full-stack architecture and modern engineering practices. Worked on building scalable web solutions and optimizing database performance within a professional Agile environment.
+                </p>
+
+                <p style="color: var(--accent); font-size: 0.8rem; margin-top: 2rem; font-style: italic; opacity: 0.6;">
+                    * Internal enterprise project — Codebase protected by NDA.
+                </p>
+            </div>
+        </section>
+        
+        <section id="work">
+            <span class="section-tag" data-aos="fade-right">/ Selected Engineering Projects</span>
+
+            <div class="project-grid">
+
+                <div class="project-card" data-aos="fade-up" data-aos-duration="1000" 
+                     data-video="https://www.w3schools.com/html/mov_bbb.mp4" 
+                     data-desc="This is eOpcina - an enterprise-grade platform that modernizes public administration. Built with the .NET Core ecosystem, it ensures a high level of security through dedicated DevSecOps practices. The application provides citizens with quick, digitized access to administrative workflows and documents."
+                     data-repo="https://github.com/ooad-2024-2025/Grupa4-Tim4">
+                    <div class="project-card-content">
+                        <span class="tech-tag">C# / .NET Ecosystem</span>
+                        <h3>eOpcina</h3>
+                        <p>An enterprise-grade platform modernizing public administration through digitized workflows and citizens’ portals.</p>
+                        
+                        <div class="sec-badge">
+                            <i class="fa-solid fa-shield-halved"></i> DevSecOps / CI/CD Security
+                        </div>
+
+                        <div class="card-actions">
+                            <button class="demo-btn"><i class="fa-solid fa-circle-play"></i> Watch Demo</button>
+                            <a href="https://github.com/ooad-2024-2025/Grupa4-Tim4" target="_blank" class="project-link">Code <i class="fa-brands fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200"
+                     data-video="https://www.w3schools.com/html/mov_bbb.mp4" 
+                     data-desc="InstaClone is a fully functional clone of the famous photo-sharing social network, engineered using the MERN stack. It features real-time communication via Socket.io for instant activity tracking and chat hubs, alongside efficient media processing and image scaling algorithms on the backend."
+                     data-repo="https://github.com/hsadikovic2/MERN-Instagram-Clone">
+                    <div class="project-card-content">
+                        <span class="tech-tag">MongoDB / Express / React / Node</span>
+                        <h3>InstaClone</h3>
+                        <p>Real-time photo-sharing ecosystem with chat hubs, media processing, and instant activity tracking.</p>
+                        
+                        <div class="card-actions">
+                            <button class="demo-btn"><i class="fa-solid fa-circle-play"></i> Watch Demo</button>
+                            <a href="https://github.com/hsadikovic2/MERN-Instagram-Clone" target="_blank" class="project-link">Code <i class="fa-brands fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-aos="fade-up" data-aos-duration="1000"
+                     data-video="https://www.w3schools.com/html/mov_bbb.mp4" 
+                     data-desc="This portfolio contains a collection of mini web applications that thoroughly explore advanced asynchronous programming in JavaScript. The projects focus heavily on complex DOM manipulation, REST API design, and performance optimization without relying on modern heavy frameworks."
+                     data-repo="https://bitbucket.org/razvoj-mobilnih-aplikacija-harissadikovic/wt2619800/src/main/">
+                    <div class="project-card-content">
+                        <span class="tech-tag">JavaScript / Node.js</span>
+                        <h3>Web Projects Portfolio</h3>
+                        <p>Collection of web applications exploring DOM manipulation, backend API design, and asynchronous programming.</p>
+                        
+                        <div class="card-actions">
+                            <button class="demo-btn"><i class="fa-solid fa-circle-play"></i> Watch Demo</button>
+                            <a href="https://bitbucket.org/razvoj-mobilnih-aplikacija-harissadikovic/wt2619800/src/main/" target="_blank" class="project-link">Code <i class="fa-solid fa-code"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200"
+                     data-video="https://www.w3schools.com/html/mov_bbb.mp4" 
+                     data-desc="A native Android client created entirely in Kotlin. Engineered following modern Android Architecture guidelines (MVVM). It utilizes Retrofit for asynchronous network calls and implements a Room database to cache aggregated news feeds locally, ensuring a seamless offline experience for users."
+                     data-repo="https://bitbucket.org/razvoj-mobilnih-aplikacija-harissadikovic/rma25projekat-19800/src/main/">
+                    <div class="project-card-content">
+                        <span class="tech-tag">Kotlin / Android Architecture</span>
+                        <h3>NewsFeedApp / RMA</h3>
+                        <p>Native mobile client fetching aggregate data feeds, engineered with modern UI components and local caching.</p>
+                        
+                        <div class="card-actions">
+                            <button class="demo-btn"><i class="fa-solid fa-circle-play"></i> Watch Demo</button>
+                            <a href="https://bitbucket.org/razvoj-mobilnih-aplikacija-harissadikovic/rma25projekat-19800/src/main/" target="_blank" class="project-link">Code <i class="fa-solid fa-code"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="contact">
+            <span class="section-tag" data-aos="fade-right">/ Get in touch</span>
+            <div class="contact-content">
+                <h2 class="contact-title" data-aos="fade-up" data-aos-duration="1000">Let's build the next big thing.</h2>
+                <div data-aos="fade-up" data-aos-duration="1200">
+                    <a href="mailto:haris.sadikovic@email.com" class="btn-primary">Send an Email <i class="fa-solid fa-envelope"></i></a>
+                </div>
+                
+                <div class="social-links" data-aos="fade-up" data-aos-duration="1400">
+                    <a href="https://github.com/hsadikovic2" target="_blank" class="social-icon"><i class="fa-brands fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/haris-sadikovic" target="_blank" class="social-icon"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="#" class="social-icon"><i class="fa-brands fa-x-twitter"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <span>© 2026 Haris Sadiković. All rights reserved.</span>
+            <br><br>
+            <span style="color: var(--text-secondary); font-size: 0.9rem;">Handcrafted with Code & Passion</span>
+        </footer>
+
+    </div>
+
+    <div id="projectModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close" id="closeModal"><i class="fa-solid fa-xmark"></i></button>
+            
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">Project Name</h2>
+                <div class="modal-tags-container" id="modalTags">
+                    </div>
+            </div>
+            
+            <div class="modal-body-content">
+                <div class="modal-video-container">
+                    <video id="modalVideo" controls>
+                        <source src="" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+
+                <div class="modal-desc-body" id="modalDesc">
+                    <p>Detailed project description goes here...</p>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <a href="#" target="_blank" id="modalRepoBtn" class="btn-primary">
+                    <i class="fa-brands fa-github"></i> View Full Repository
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            once: true,
+            offset: 120
+        });
+
+        // MODAL LOGIC
+        const modal = document.getElementById('projectModal');
+        const closeModal = document.getElementById('closeModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalVideo = document.getElementById('modalVideo');
+        const modalDesc = document.getElementById('modalDesc');
+        const modalTags = document.getElementById('modalTags');
+        const modalRepoBtn = document.getElementById('modalRepoBtn');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        projectCards.forEach(card => {
+            card.addEventListener('click', function(e) {
+                // If user clicks directly on the external "Code" link, let it open the new tab naturally, don't open modal
+                if(e.target.closest('.project-link')) {
+                    return; 
+                }
+
+                // Extract data from the clicked card
+                const title = this.querySelector('h3').innerText;
+                const videoUrl = this.getAttribute('data-video');
+                const description = this.getAttribute('data-desc');
+                const repoUrl = this.getAttribute('data-repo');
+                
+                // Get tags and badges to display in the modal header
+                const techTag = this.querySelector('.tech-tag') ? this.querySelector('.tech-tag').outerHTML : '';
+                const secBadge = this.querySelector('.sec-badge') ? this.querySelector('.sec-badge').outerHTML : '';
+
+                // Populate Modal Data
+                modalTitle.innerText = title;
+                modalVideo.src = videoUrl;
+                modalDesc.innerHTML = `<p>${description}</p>`;
+                modalTags.innerHTML = techTag + secBadge;
+                
+                // Configure Repository Button in Modal
+                if(repoUrl) {
+                    modalRepoBtn.href = repoUrl;
+                    modalRepoBtn.style.display = 'inline-flex';
+                } else {
+                    modalRepoBtn.style.display = 'none';
+                }
+
+                // Show Modal
+                modal.classList.add('active');
+            });
+        });
+
+        function hideModal() {
+            modal.classList.remove('active');
+            modalVideo.pause(); // Pause video when modal is closed
+        }
+
+        closeModal.addEventListener('click', hideModal);
+
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                hideModal();
+            }
+        });
+    </script>
+</body>
+</html>
