@@ -12,547 +12,7 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <style>
-        :root {
-            --bg: #030712; 
-            --accent: #38bdf8; 
-            --accent-glow: rgba(56, 189, 248, 0.3);
-            --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
-            --card-bg: rgba(255, 255, 255, 0.02);
-            --border: rgba(255, 255, 255, 0.05);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg);
-            color: var(--text-primary);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        /* --- GLOW BACKGROUNDS --- */
-        .glow-sphere {
-            position: absolute;
-            width: 400px;
-            height: 400px;
-            background: var(--accent);
-            filter: blur(150px);
-            opacity: 0.12;
-            z-index: -1;
-            border-radius: 50%;
-        }
-
-        /* --- HEADER / HERO --- */
-        header {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            position: relative;
-        }
-
-        .hero-content {
-            display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            align-items: center;
-            gap: 3rem;
-        }
-
-        .hero-text {
-            display: flex;
-            flex-direction: column;
-            gap: 1.25rem;
-        }
-
-        .hero-image {
-            justify-self: end;
-            width: 320px;
-            height: 320px;
-            border-radius: 28px;
-            overflow: hidden;
-            border: 1px solid var(--border);
-            background: radial-gradient(circle at 30% 30%, var(--accent-glow), transparent 60%),
-                        linear-gradient(135deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0));
-            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
-            position: relative;
-        }
-
-        .hero-image::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 28px;
-            pointer-events: none;
-        }
-
-        .hero-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            filter: saturate(1.05);
-        }
-
-        .hero-top {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.9rem;
-            color: var(--accent);
-            font-weight: 600;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 1rem;
-        }
-
-        .hero-top span {
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            background-color: var(--accent);
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-
-        h1 {
-            font-size: 4.5rem;
-            font-weight: 800;
-            letter-spacing: -3px;
-            line-height: 1;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(to right, #fff, #64748b);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .lead {
-            font-size: 1.25rem;
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin-bottom: 3rem;
-        }
-
-        /* --- BUTTONS & HOVERS --- */
-        .btn-primary {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            background: var(--text-primary);
-            color: var(--bg);
-            text-decoration: none;
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 1px solid transparent;
-        }
-
-        .btn-primary:hover {
-            background: transparent;
-            color: var(--text-primary);
-            border-color: var(--text-primary);
-            transform: scale(1.05) rotate(-1deg);
-        }
-
-        .btn-primary i {
-            transition: transform 0.3s ease;
-        }
-
-        .btn-primary:hover i {
-            transform: translateX(5px);
-        }
-
-        /* --- SECTIONS --- */
-        section {
-            padding: 8rem 0;
-            border-top: 1px solid var(--border);
-        }
-
-        .section-tag {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            display: block;
-            margin-bottom: 3rem;
-        }
-
-        /* --- EXPERIENCE --- */
-        .exp-card {
-            background: linear-gradient(to right, rgba(56, 189, 248, 0.05), transparent);
-            border-left: 2px solid var(--accent);
-            padding: 2.5rem;
-            border-radius: 0 20px 20px 0;
-        }
-
-        .exp-company {
-            color: var(--accent);
-            font-weight: 600;
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-            display: block;
-        }
-
-        .exp-role {
-            font-size: 1.8rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-        }
-
-        /* --- PROJECTS --- */
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            align-items: stretch;
-            grid-auto-rows: 1fr;
-        }
-
-        .project-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 3rem;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-            cursor: pointer;
-            backdrop-filter: blur(10px);
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            min-height: 420px;
-        }
-
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at top right, var(--accent-glow), transparent 70%);
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            z-index: 0;
-        }
-
-        .project-card:hover::before {
-            opacity: 1;
-        }
-
-        .project-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: rgba(56, 189, 248, 0.3);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-        }
-
-        .project-card-content {
-            position: relative;
-            z-index: 1;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
-
-        .tech-tag {
-            font-family: monospace;
-            font-size: 0.8rem;
-            color: var(--accent);
-            background: rgba(56, 189, 248, 0.1);
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            display: inline-block;
-            margin-bottom: 1.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .project-card:hover .tech-tag {
-            background: var(--accent);
-            color: var(--bg);
-        }
-
-        .project-card h3 {
-            font-size: 1.8rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            letter-spacing: -0.5px;
-        }
-
-        .project-card p {
-            color: var(--text-secondary);
-            font-size: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .sec-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: #fb923c;
-            background: rgba(251, 146, 60, 0.1);
-            padding: 0.5rem 1rem;
-            border-radius: 12px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            border: 1px solid rgba(251, 146, 60, 0.2);
-            transition: all 0.3s ease;
-            margin-bottom: 1rem;
-        }
-
-        .project-card:hover .sec-badge {
-            transform: rotate(-2deg);
-        }
-
-        /* Card Action Buttons Container */
-        .card-actions {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            margin-top: auto;
-            padding-top: 2rem;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: all 0.4s ease;
-            position: relative;
-            z-index: 2;
-        }
-
-        .project-card:hover .card-actions {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .demo-btn {
-            background: rgba(56, 189, 248, 0.1);
-            color: var(--accent);
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            padding: 0.6rem 1.2rem;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: all 0.3s ease;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .demo-btn:hover {
-            background: var(--accent);
-            color: var(--bg);
-        }
-
-        .project-link {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--text-primary);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .project-link:hover {
-            color: var(--accent);
-        }
-
-        /* --- CONTACT --- */
-        .contact-content {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .contact-title {
-            font-size: 4rem;
-            font-weight: 800;
-            letter-spacing: -2px;
-            line-height: 1;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .social-icon {
-            color: var(--text-secondary);
-            font-size: 1.5rem;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-
-        .social-icon:hover {
-            color: var(--accent);
-            transform: scale(1.2) rotate(10deg);
-        }
-
-        /* --- KEYFRAMES --- */
-        @keyframes pulse {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.7); }
-            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(56, 189, 248, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(56, 189, 248, 0); }
-        }
-
-        /* Mobile */
-        @media (max-width: 768px) {
-            h1 { font-size: 3rem; }
-            .contact-title { font-size: 2.5rem; }
-            .project-grid { grid-template-columns: 1fr; }
-            .exp-role { font-size: 1.4rem; }
-            .card-actions { flex-direction: column; align-items: flex-start; gap: 1rem; opacity: 1; transform: none; }
-        }
-
-        /* --- MODAL / POPUP CSS --- */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(3, 7, 18, 0.85);
-            backdrop-filter: blur(10px);
-            z-index: 9999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-
-        .modal-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .modal-content {
-            background: var(--bg);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 3rem;
-            max-width: 800px;
-            width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-            transform: translateY(30px) scale(0.95);
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
-        }
-
-        .modal-overlay.active .modal-content {
-            transform: translateY(0) scale(1);
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border);
-            color: var(--text-primary);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-            z-index: 10;
-        }
-
-        .modal-close:hover {
-            background: #ef4444;
-            border-color: #ef4444;
-            color: #fff;
-            transform: rotate(90deg);
-        }
-
-        .modal-header {
-            margin-bottom: 2rem;
-            padding-right: 3rem;
-        }
-
-        .modal-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
-            line-height: 1.2;
-        }
-
-        .modal-tags-container {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            margin-top: 1rem;
-        }
-
-        .modal-video-container {
-            width: 100%;
-            border-radius: 16px;
-            overflow: hidden;
-            margin-bottom: 2.5rem;
-            border: 1px solid var(--border);
-            background: #000;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        .modal-video-container video {
-            width: 100%;
-            display: block;
-        }
-
-        .modal-body-content {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-
-        .modal-desc-body {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-            line-height: 1.8;
-        }
-
-        .modal-desc-body p {
-            margin-bottom: 1rem;
-        }
-
-        .modal-footer {
-            margin-top: 1rem;
-            padding-top: 2rem;
-            border-top: 1px solid var(--border);
-            display: flex;
-            justify-content: flex-start;
-        }
-
-    </style>
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
 
@@ -612,7 +72,7 @@
             <div class="project-grid">
 
                 <div class="project-card" data-aos="fade-up" data-aos-duration="1000" 
-                     data-video="https://www.w3schools.com/html/mov_bbb.mp4" 
+                     data-video="C:\Users\hsadi\Desktop\protfolio\assets\demo_eOpcina.mp4" 
                      data-desc="This is eOpcina - an enterprise-grade platform that modernizes public administration. Built with the .NET Core ecosystem, it ensures a high level of security through dedicated DevSecOps practices. The application provides citizens with quick, digitized access to administrative workflows and documents."
                      data-repo="https://github.com/ooad-2024-2025/Grupa4-Tim4">
                     <div class="project-card-content">
@@ -627,13 +87,46 @@
                         <div class="card-actions">
                             <button class="demo-btn"><i class="fa-solid fa-circle-play"></i> Watch Demo</button>
                             <a href="https://github.com/ooad-2024-2025/Grupa4-Tim4" target="_blank" class="project-link">Code <i class="fa-brands fa-github"></i></a>
+                            <a href="https://github.com/hsadikovic2/eopcina-automation-hub" target="_blank" class="project-link">Code for DevSecOps <i class="fa-brands fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-aos="fade-up" data-aos-duration="1000"
+                     data-video="C:\Users\hsadi\Desktop\protfolio\assets\ScenarijProVid.mp4" 
+                     data-desc="ScenarijPro is a specialized web application for collaborative screenplay writing. The project evolved through multiple stages (&quot;spirale&quot;), moving from a filesystem-based JSON storage to a robust, relational MySQL database architecture using Sequelize ORM."
+                     data-repo="https://bitbucket.org/razvoj-mobilnih-aplikacija-harissadikovic/wt2619800/src/main/">
+                    <div class="project-card-content">
+                        <span class="tech-tag">JavaScript / Node.js</span>
+                        <h3>ScenarijPro</h3>
+                        <p>A robust Node.js application for collaborative screenplay writing — Checkpoints, Deltas and real-time locking.</p>
+                        
+                        <div class="card-actions">
+                            <button class="demo-btn"><i class="fa-solid fa-circle-play"></i> Watch Demo</button>
+                            <a href="https://bitbucket.org/razvoj-mobilnih-aplikacija-harissadikovic/wt2619800/src/main/" target="_blank" class="project-link">Code <i class="fa-solid fa-code"></i></a>
                         </div>
                     </div>
                 </div>
 
                 <div class="project-card" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200"
-                     data-video="https://www.w3schools.com/html/mov_bbb.mp4" 
-                     data-desc="InstaClone is a fully functional clone of the famous photo-sharing social network, engineered using the MERN stack. It features real-time communication via Socket.io for instant activity tracking and chat hubs, alongside efficient media processing and image scaling algorithms on the backend."
+                     data-video="C:\Users\hsadi\Desktop\protfolio\assets\newsFeed.mp4" 
+                     data-desc="A native Android client created entirely in Kotlin. Engineered following modern Android Architecture guidelines (MVVM). It utilizes Retrofit for asynchronous network calls and implements a Room database to cache aggregated news feeds locally, ensuring a seamless offline experience for users."
+                     data-repo="https://bitbucket.org/razvoj-mobilnih-aplikacija-harissadikovic/rma25projekat-19800/src/main/">
+                    <div class="project-card-content">
+                        <span class="tech-tag">Kotlin / Android Architecture</span>
+                        <h3>NewsFeedApp</h3>
+                        <p>Native mobile client fetching aggregate data feeds, engineered with modern UI components and local caching.</p>
+                        
+                        <div class="card-actions">
+                            <button class="demo-btn"><i class="fa-solid fa-circle-play"></i> Watch Demo</button>
+                            <a href="https://bitbucket.org/razvoj-mobilnih-aplikacija-harissadikovic/rma25projekat-19800/src/main/" target="_blank" class="project-link">Code <i class="fa-solid fa-code"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                 <div class="project-card" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200"
+                     
+                     data-desc="InstaClone — A full‑stack MERN photo‑sharing app showcasing secure authentication (bcryptjs + JWT), MongoDB/Mongoose data models, and React frontend integration for creating and viewing user posts."
                      data-repo="https://github.com/hsadikovic2/MERN-Instagram-Clone">
                     <div class="project-card-content">
                         <span class="tech-tag">MongoDB / Express / React / Node</span>
@@ -647,39 +140,24 @@
                     </div>
                 </div>
 
-                <div class="project-card" data-aos="fade-up" data-aos-duration="1000"
-                     data-video="https://www.w3schools.com/html/mov_bbb.mp4" 
-                     data-desc="This portfolio contains a collection of mini web applications that thoroughly explore advanced asynchronous programming in JavaScript. The projects focus heavily on complex DOM manipulation, REST API design, and performance optimization without relying on modern heavy frameworks."
-                     data-repo="https://bitbucket.org/razvoj-mobilnih-aplikacija-harissadikovic/wt2619800/src/main/">
-                    <div class="project-card-content">
-                        <span class="tech-tag">JavaScript / Node.js</span>
-                        <h3>Web Projects Portfolio</h3>
-                        <p>Collection of web applications exploring DOM manipulation, backend API design, and asynchronous programming.</p>
-                        
-                        <div class="card-actions">
-                            <button class="demo-btn"><i class="fa-solid fa-circle-play"></i> Watch Demo</button>
-                            <a href="https://bitbucket.org/razvoj-mobilnih-aplikacija-harissadikovic/wt2619800/src/main/" target="_blank" class="project-link">Code <i class="fa-solid fa-code"></i></a>
+                
+                    <div class="project-card" data-aos="fade-up" data-aos-duration="1000"
+                         data-video="C:\Users\hsadi\Desktop\protfolio\assets\snimak.mp4"
+                         data-desc="SunFlow — an educational AR app about sunflowers. It includes point-of-objects (marker-based AR), interactive modules, quizzes for knowledge checks, and multimedia educational content about sunflower biology and growth."
+                         data-repo="https://github.com/hsadikovic2/SunFlow">
+                        <div class="project-card-content">
+                            <span class="tech-tag"> C# / Unity / Edu</span>
+                            <h3>SunFlow</h3>
+                            <p>An interactive app for learning about sunflowers through augmented reality: marker-based AR, quizzes, and educational content.</p>
+
+                            <div class="card-actions">
+                                <button class="demo-btn"><i class="fa-solid fa-circle-play"></i> Watch Demo</button>
+                                <a href="https://github.com/hsadikovic2/SunFlow" target="_blank" class="project-link">Code <i class="fa-brands fa-github"></i></a>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="project-card" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200"
-                     data-video="https://www.w3schools.com/html/mov_bbb.mp4" 
-                     data-desc="A native Android client created entirely in Kotlin. Engineered following modern Android Architecture guidelines (MVVM). It utilizes Retrofit for asynchronous network calls and implements a Room database to cache aggregated news feeds locally, ensuring a seamless offline experience for users."
-                     data-repo="https://bitbucket.org/razvoj-mobilnih-aplikacija-harissadikovic/rma25projekat-19800/src/main/">
-                    <div class="project-card-content">
-                        <span class="tech-tag">Kotlin / Android Architecture</span>
-                        <h3>NewsFeedApp / RMA</h3>
-                        <p>Native mobile client fetching aggregate data feeds, engineered with modern UI components and local caching.</p>
-                        
-                        <div class="card-actions">
-                            <button class="demo-btn"><i class="fa-solid fa-circle-play"></i> Watch Demo</button>
-                            <a href="https://bitbucket.org/razvoj-mobilnih-aplikacija-harissadikovic/rma25projekat-19800/src/main/" target="_blank" class="project-link">Code <i class="fa-solid fa-code"></i></a>
-                        </div>
-                    </div>
                 </div>
-
-            </div>
         </section>
 
         <section id="contact">
@@ -733,6 +211,10 @@
                 <a href="#" target="_blank" id="modalRepoBtn" class="btn-primary">
                     <i class="fa-brands fa-github"></i> View Full Repository
                 </a>
+
+                <a href="https://github.com/hsadikovic2/eopcina-automation-hub" target="_blank" id="modalUpdateBtn" class="btn-primary">
+                    <i class="fa-solid fa-code-branch"></i> DevSecOps Update Repository
+                </a>
             </div>
         </div>
     </div>
@@ -752,6 +234,7 @@
         const modalDesc = document.getElementById('modalDesc');
         const modalTags = document.getElementById('modalTags');
         const modalRepoBtn = document.getElementById('modalRepoBtn');
+        const modalUpdateBtn = document.getElementById('modalUpdateBtn');
         const projectCards = document.querySelectorAll('.project-card');
 
         projectCards.forEach(card => {
@@ -774,15 +257,111 @@
                 // Populate Modal Data
                 modalTitle.innerText = title;
                 modalVideo.src = videoUrl;
-                modalDesc.innerHTML = `<p>${description}</p>`;
+                const normalizedTitle = (title || '').trim().toLowerCase();
+                if (normalizedTitle === 'eopcina') {
+                    modalDesc.innerHTML = `
+                        <p><strong>eOpcina – Digital Government Platform</strong></p>
+                        <p>eOpcina is a comprehensive web solution designed to digitize municipal administrative processes. This platform bridges the gap between citizens and local government by allowing users to submit, track, and manage official requests digitally.</p>
+
+                        <h4>Key Contributions &amp; Features:</h4>
+                        <ul>
+                            <li><strong>Request Management System:</strong> Developed the core logic for submitting and tracking document requests with real-time status updates.</li>
+                            <li><strong>Advanced Security:</strong> Implemented a security layer that automatically locks user accounts after 5 failed login attempts to prevent brute-force attacks.</li>
+                            <li><strong>User History &amp; Profiles:</strong> Created a dedicated dashboard for users to view their entire history of interactions and manage personal data.</li>
+                            <li><strong>Electronic Signature Integration:</strong> Integrated secure digital signing for official document submissions.</li>
+                            <li><strong>Full-Stack Development:</strong> Managed database migrations (Entity Framework), controller logic, and responsive UI components using Bootstrap.</li>
+                        </ul>
+
+                        <h4>Technical Excellence:</h4>
+                        <p>The project follows strict OOAD (Object-Oriented Analysis and Design) principles. I utilized the MVC architectural pattern and implemented various Design Patterns (Creational, Structural, and Behavioral) to ensure the codebase is scalable, maintainable, and follows SOLID principles.</p>
+
+                        <p><strong>Technologies used:</strong> C#, .NET, SQL Server, Entity Framework, Bootstrap, Git.</p>
+                    `;
+                } else if (normalizedTitle === 'scenarijpro') {
+                    modalDesc.innerHTML = `
+                        <p><strong>ScenarijPro – Collaborative Scriptwriting Platform</strong></p>
+                        <p>ScenarijPro is a specialized web application for collaborative screenplay writing. The project evolved through multiple stages ("spirale"), moving from filesystem-based JSON storage to a robust, relational MySQL database architecture using Sequelize ORM.</p>
+
+                        <h4>Key Technical Implementations:</h4>
+                        <ul>
+                            <li><strong>Version Control &amp; Checkpoints:</strong> Developed a custom checkpoint system that allows users to save the current state of a script. Using a delta-based logic, the system can reconstruct the screenplay to any point in time by chronologically applying saved changes (deltas) to the initial state.</li>
+                            <li><strong>Collaborative Locking Mechanism:</strong> Implemented a locking system to prevent editing conflicts, ensuring only one user can edit a specific line or character name at a time.</li>
+                            <li><strong>Advanced Text Processing:</strong> Built a custom JavaScript engine for script analysis capable of detecting unique characters, calculating word counts, and identifying potential typos in character names using frequency and string-similarity algorithms.</li>
+                            <li><strong>Automatic Content Wrapping:</strong> Integrated logic that automatically handles line breaks at a 20-word limit to maintain professional screenplay formatting.</li>
+                            <li><strong>RESTful API:</strong> Clean Express.js API handling routes for scenario management, real-time deltas, and state restoration.</li>
+                        </ul>
+
+                        <p><strong>Technologies:</strong> Node.js, Express.js, MySQL, Sequelize ORM, JavaScript (ES6+), HTML5/CSS3 (Grid &amp; Flexbox).</p>
+                    `;
+                } else if (normalizedTitle === 'instaclone') {
+                    modalDesc.innerHTML = `
+                        <p><strong>InstaClone – Full-Stack Photo Sharing (MERN)</strong></p>
+                        <ul>
+                            <li><strong>Overview:</strong> A full-stack MERN application that replicates core social-media posting and feed functionality, implemented end-to-end from API and database to React UI.</li>
+                            <li><strong>Tech Stack:</strong> Node.js, Express, MongoDB (Mongoose) for the backend; React with React Router for the frontend.</li>
+                            <li><strong>Authentication &amp; Security:</strong> Full signup/signin flow with password hashing using <code>bcryptjs</code> and JWT-based authentication middleware for protected routes; tokens validated server-side and routes guarded to prevent unauthorized access.</li>
+                            <li><strong>Data Modeling:</strong> <code>User</code> and <code>Post</code> schemas implemented with Mongoose, including field validation and basic sanitization to maintain data integrity.</li>
+                            <li><strong>Core Functionality (CRUD Focus):</strong> Endpoints for creating posts, fetching all posts, and fetching posts by a specific user; frontend integrates these routes to provide authenticated post creation and feed rendering.</li>
+                            <li><strong>API Design:</strong> RESTful Express routes with clear separation of concerns (auth, posts, users) and middleware for error handling and authentication checks.</li>
+                            <li><strong>Developer Considerations:</strong> Emphasis on maintainability and testability—well-structured controllers/models, clear request validation, and a modular codebase suitable for future features (likes, comments, pagination).</li>
+                            <li><strong>Why it’s Full-Stack:</strong> Demonstrates complete ownership of the stack—database schema design, secure backend auth, API surface, and a React client that consumes the API and handles routing and auth state.</li>
+                        </ul>
+                    `;
+                } else if (normalizedTitle === 'newsfeedapp') {
+                    modalDesc.innerHTML = `
+                        <p><strong>NewsFeedApp – Real-time News Aggregator</strong></p>
+                        <p>NewsFeedApp is a dynamic news aggregation platform designed to deliver personalized, real-time content to users. The application emphasizes precise filtering and automated content delivery with a strong focus on reliability and security.</p>
+
+                        <h4>Key Features & Technical Implementations:</h4>
+                        <ul>
+                            <li><strong>Real-time API Integration:</strong> Implemented a system to fetch news from external APIs, ensuring the feed stays up-to-date with minimal latency.</li>
+                            <li><strong>Multi-Category Filtering:</strong> Built a robust categorization and filtering engine that allows users to switch quickly between topics such as politics, sports, technology, and entertainment.</li>
+                            <li><strong>Advanced Content Filtering & Moderation:</strong> Integrated advanced filters to sort by creation date and an automated moderation mechanism to remove undesired words and inappropriate content.</li>
+                            <li><strong>CI/CD Pipeline:</strong> Configured an automated CI/CD pipeline for testing and deployments to streamline releases and increase reliability.</li>
+                            <li><strong>DevSecOps Integration:</strong> Ongoing DevSecOps work including static code analysis and automated security scans, with full integration planned by June.</li>
+                        </ul>
+
+                        <p><strong>Technologies:</strong> Kotlin (Android client) / Retrofit for API calls, Room for local caching, background sync workers, and CI/CD tooling for automated testing and deployment.</p>
+                    `;
+                } else if (normalizedTitle === 'sunflow') {
+                    modalDesc.innerHTML = `
+                        <p><strong>SunFlow – Educational AR Experience</strong></p>
+                        <p>SunFlow is an augmented reality educational app that teaches users about sunflower biology through interactive markers, quizzes, and multimedia modules designed for engaging learning.</p>
+
+                        <h4>Key Features & Technical Implementations:</h4>
+                        <ul>
+                            <li><strong>Marker-based AR:</strong> Implemented point-of-object AR interactions for immersive educational content.</li>
+                            <li><strong>Interactive Learning Modules:</strong> Modular quizzes and checkpoints provide feedback and track learning progress.</li>
+                            <li><strong>Multimedia Content:</strong> Integrated images, animations, and audio to reinforce concepts and keep engagement high.</li>
+                            <li><strong>Performance Optimization:</strong> Optimized asset loading and memory usage for smooth AR performance on mobile devices.</li>
+                        </ul>
+
+                        <p><strong>Technologies:</strong> Unity, AR Foundation/ARCore, C#, and mobile performance optimizations.</p>
+                    `;
+                } else {
+                    modalDesc.innerHTML = `<p>${description}</p>`;
+                }
                 modalTags.innerHTML = techTag + secBadge;
                 
-                // Configure Repository Button in Modal
+                // Configure Repository Buttons in Modal
                 if(repoUrl) {
                     modalRepoBtn.href = repoUrl;
                     modalRepoBtn.style.display = 'inline-flex';
+
+                    // Show the update button ONLY for the eOpcina project
+                    if(modalUpdateBtn) {
+                        const normalizedTitle = (title || '').trim().toLowerCase();
+                        if(normalizedTitle === 'eopcina') {
+                            // DevSecOps automation hub link
+                            modalUpdateBtn.href = 'https://github.com/hsadikovic2/eopcina-automation-hub';
+                            modalUpdateBtn.style.display = 'inline-flex';
+                        } else {
+                            modalUpdateBtn.style.display = 'none';
+                        }
+                    }
                 } else {
                     modalRepoBtn.style.display = 'none';
+                    if(modalUpdateBtn) modalUpdateBtn.style.display = 'none';
                 }
 
                 // Show Modal
